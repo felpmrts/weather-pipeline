@@ -1,0 +1,27 @@
+import requests
+import json
+from pathlib import Path
+
+def extract_weather_data(url:str) -> list:
+     response = requests.get(url)
+     
+
+     if response.status_code != 200:
+          print("Erro de requisição")
+          return []
+     
+     data = response.json()
+     
+     if not data:
+          print("Nenhum dado retornado")
+          return []
+
+     output_path = 'data/weather_data.json'
+     output_dir = Path(output_path).parent
+     output_dir.mkdir(parents=True, exist_ok=True)
+
+     with open(output_path, 'w') as f:
+          json.dump(data,f,indent=4)
+
+     print(f"Arquivo salvo em {output_path}")
+     return data
