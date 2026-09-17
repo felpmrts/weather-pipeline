@@ -10,7 +10,7 @@ def extract_weather_data(url:str) -> list:
      
 
      if response.status_code != 200:
-          logging.error("Erro de requisição")
+          logging.error(f"Erro de requisição: {response.status_code}")
           return []
      
      data = response.json()
